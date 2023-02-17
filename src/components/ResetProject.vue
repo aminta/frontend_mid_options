@@ -4,18 +4,21 @@ import useStorage from "@/composables/useStorage.js";
 
 export default {
   // setup() itself does not have access to the component instance - this will have a value of undefined inside setup(). You can access Composition-API-exposed values from Options API, but not the other way around.
-  setup(props) {
+  setup() {
     const { reset } = useStorage("projects");
     return { reset };
   },
+
   components: {
     Modal,
   },
+
   data() {
     return {
       showModal: false,
     };
   },
+
   methods: {
     onDismiss() {
       this.showModal = false;
@@ -31,6 +34,7 @@ export default {
   },
 };
 </script>
+
 <template>
   <button
     @click="showModal = true"
@@ -38,7 +42,6 @@ export default {
   >
     Reset App
   </button>
-
   <Teleport to="body">
     <Modal
       :show="showModal"

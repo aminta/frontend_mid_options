@@ -13,6 +13,7 @@ export const useProjectsStore = defineStore("projects", {
     searchString: "",
     showOnlyTopThree: false,
   }),
+
   actions: {
     async fill() {
       const { data, write } = useStorage("projects", this.$state);
@@ -70,6 +71,7 @@ export const useProjectsStore = defineStore("projects", {
       });
     },
   },
+
   getters: {
     projectsSorted() {
       if (!this.sortBy) {

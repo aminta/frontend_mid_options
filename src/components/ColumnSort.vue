@@ -9,13 +9,13 @@ export default {
       isAsc: store.sortOrder === "asc" && store.sortBy === this.field,
     };
   },
-  mounted() {},
-  created() {},
+
   methods: {
     toggleSortOrder() {
       this.isAsc = !this.isAsc;
     },
   },
+
   computed: {
     ...mapStores(useProjectsStore),
     iconClasses() {
@@ -26,9 +26,11 @@ export default {
       ].join(" ");
     },
   },
+
   props: {
     field: String,
   },
+
   watch: {
     isAsc(newValue, oldValue) {
       let sortOrder = newValue ? "asc" : "desc";

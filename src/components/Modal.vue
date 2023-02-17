@@ -5,6 +5,7 @@ export default {
     dismissText: String,
     saveText: String,
   },
+
   emits: ["dismiss", "confirm"],
 };
 </script>

@@ -1,8 +1,8 @@
 <script setup>
 import { useProjectsStore } from "@/stores/projects.js";
-
 let store = useProjectsStore();
 </script>
+
 <template>
   <div class="relative max-input-width">
     <font-awesome-icon

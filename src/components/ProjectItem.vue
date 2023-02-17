@@ -8,6 +8,7 @@ export default {
   components: {
     ColumnSort,
   },
+
   data() {
     const store = useProjectsStore();
     const item = store.projects?.find(
@@ -17,6 +18,7 @@ export default {
       starred: item?.starredFromCurrentUser,
     };
   },
+
   watch: {
     // whenever starred changes, this function will run
     starred(newStarred, oldStarred) {
@@ -27,13 +29,13 @@ export default {
       );
     },
   },
-  mounted() {},
-  created() {},
+
   methods: {
     toggleStar() {
       return (this.starred = !this.starred);
     },
   },
+
   computed: {
     iconClasses() {
       return this.starred ? "fa-solid fa-star" : "fa-regular fa-star";
@@ -57,6 +59,7 @@ export default {
       return formatDate(this.createdAt);
     },
   },
+
   props: {
     name: String,
     description: String,
