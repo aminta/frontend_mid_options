@@ -22,6 +22,11 @@ npm install
 npm run dev
 ```
 
+### Compile, build and upload to Github pages
+```sh
+npm run deploy
+```
+
 ### Compile and Minify for Production
 
 ```sh
