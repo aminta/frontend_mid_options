@@ -1,24 +1,34 @@
-<script setup>
+<script>
 import Modal from "@/components/Modal.vue";
-import { ref } from "vue";
 import useStorage from "@/composables/useStorage.js";
 
-const { reset } = useStorage("projects");
-
-function resetApp() {
-  reset();
-  location.reload();
-}
-
-let showModal = ref(false);
-
-const onDismiss = () => {
-  showModal.value = false;
-};
-
-const onConfirm = () => {
-  showModal.value = false;
-  resetApp();
+export default {
+  // setup() itself does not have access to the component instance - this will have a value of undefined inside setup(). You can access Composition-API-exposed values from Options API, but not the other way around.
+  setup(props) {
+    const { reset } = useStorage("projects");
+    return { reset };
+  },
+  components: {
+    Modal,
+  },
+  data() {
+    return {
+      showModal: false,
+    };
+  },
+  methods: {
+    onDismiss() {
+      this.showModal = false;
+    },
+    onConfirm() {
+      this.showModal = false;
+      this.resetApp();
+    },
+    resetApp() {
+      this.reset();
+      location.reload();
+    },
+  },
 };
 </script>
 <template>
@@ -42,8 +52,6 @@ const onConfirm = () => {
           Are you sure you want to reset the project to its initial state and
           reload the page?
         </p>
-
-        {{ validationError ? validationError : "" }}
       </template>
     </Modal>
   </Teleport>

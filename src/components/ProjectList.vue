@@ -2,7 +2,6 @@
 import ProjectItem from "./ProjectItem.vue";
 import { useProjectsStore } from "@/stores/projects.js";
 import ProjectHeader from "./ProjectHeader.vue";
-
 let store = useProjectsStore();
 </script>
 

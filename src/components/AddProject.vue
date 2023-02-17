@@ -1,49 +1,60 @@
-<script setup>
+<script>
 import Modal from "@/components/Modal.vue";
-import { ref, reactive } from "vue";
 import { useProjectsStore } from "@/stores/projects.js";
+import { mapStores } from "pinia";
 
-let store = useProjectsStore();
+export default {
+  components: {
+    Modal,
+  },
+  data() {
+    return {
+      showModal: false,
+      newProject: {
+        name: "",
+        description: "",
+      },
+      validationErrors: [],
+    };
+  },
+  mounted() {},
+  created() {},
+  methods: {
+    onClose() {
+      this.showModal = false;
+      this.newProject.name = "";
+      this.newProject.description = "";
+    },
+    onSave() {
+      const noNameInserted =
+        this.newProject.name.trim() === ""
+          ? "Attenzione, inserire descrizione progetto"
+          : false;
+      const noDescriptionInserted =
+        this.newProject.description.trim() === ""
+          ? "Attenzione, inserire nome progetto"
+          : false;
 
-let showModal = ref(false);
-
-let newProject = reactive({
-  name: "",
-  description: "",
-});
-
-const onClose = () => {
-  showModal.value = false;
-  newProject.name = "";
-  newProject.description = "";
-};
-
-let validationErrors = reactive([]);
-
-const onSave = () => {
-  const noNameInserted =
-    newProject.name.trim() === ""
-      ? "Attenzione, inserire descrizione progetto"
-      : false;
-  const noDescriptionInserted =
-    newProject.description.trim() === ""
-      ? "Attenzione, inserire nome progetto"
-      : false;
-
-  if (noNameInserted || noDescriptionInserted) {
-    if (noNameInserted && !validationErrors.includes(noNameInserted))
-      validationErrors.push(noNameInserted);
-    if (
-      noDescriptionInserted &&
-      !validationErrors.includes(noDescriptionInserted)
-    )
-      validationErrors.push(noDescriptionInserted);
-  } else {
-    store.addNewProject(newProject);
-    showModal.value = false;
-  }
-  newProject.name = "";
-  newProject.description = "";
+      if (noNameInserted || noDescriptionInserted) {
+        if (noNameInserted && !this.validationErrors.includes(noNameInserted))
+          this.validationErrors.push(noNameInserted);
+        if (
+          noDescriptionInserted &&
+          !this.validationErrors.includes(noDescriptionInserted)
+        )
+          this.validationErrors.push(noDescriptionInserted);
+      } else {
+        this.projectsStore.addNewProject(this.newProject);
+        this.showModal = false;
+      }
+      this.newProject.name = "";
+      this.newProject.description = "";
+    },
+  },
+  computed: {
+    ...mapStores(useProjectsStore),
+  },
+  props: {},
 };
 </script>
 <template>

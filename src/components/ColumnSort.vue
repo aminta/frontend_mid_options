@@ -1,31 +1,42 @@
-<script setup>
-import { ref, computed, watch } from "vue";
+<script>
 import { useProjectsStore } from "@/stores/projects.js";
-let store = useProjectsStore();
+import { mapStores } from "pinia";
 
-let props = defineProps({
-  field: String,
-});
-
-let isAsc = ref(store.sortOrder === "asc" && store.sortBy === props.field);
-
-let iconClasses = computed(() =>
-  [
-    "fa-solid",
-    isAsc.value ? "fa-sort-up" : "",
-    !isAsc.value ? "fa-sort-down" : "",
-  ].join(" ")
-);
-
-const toggleSortOrder = () => {
-  isAsc.value = !isAsc.value;
+export default {
+  data() {
+    const store = useProjectsStore();
+    return {
+      isAsc: store.sortOrder === "asc" && store.sortBy === this.field,
+    };
+  },
+  mounted() {},
+  created() {},
+  methods: {
+    toggleSortOrder() {
+      this.isAsc = !this.isAsc;
+    },
+  },
+  computed: {
+    ...mapStores(useProjectsStore),
+    iconClasses() {
+      return [
+        "fa-solid",
+        this.isAsc ? "fa-sort-up" : "",
+        !this.isAsc ? "fa-sort-down" : "",
+      ].join(" ");
+    },
+  },
+  props: {
+    field: String,
+  },
+  watch: {
+    isAsc(newValue, oldValue) {
+      let sortOrder = newValue ? "asc" : "desc";
+      this.projectsStore.setSortOrder(sortOrder);
+      this.projectsStore.setSortBy(this.field);
+    },
+  },
 };
-
-watch(isAsc, (val) => {
-  let sortOrder = val ? "asc" : "desc";
-  store.setSortOrder(sortOrder);
-  store.setSortBy(props.field);
-});
 </script>
 
 <template>
