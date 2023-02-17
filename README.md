@@ -1,6 +1,6 @@
-# frontend_mid
+# frontend_mid_options
 
-App to start, sort and projects.
+App to start, sort and projects. Supporting Vue Options Api.
 
 ## Recommended IDE Setup
 
