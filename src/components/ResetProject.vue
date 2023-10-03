@@ -3,14 +3,14 @@ import Modal from "@/components/Modal.vue";
 import useStorage from "@/composables/useStorage.js";
 
 export default {
+  components: {
+    Modal,
+  },
+
   // setup() itself does not have access to the component instance - this will have a value of undefined inside setup(). You can access Composition-API-exposed values from Options API, but not the other way around.
   setup() {
     const { reset } = useStorage("projects");
     return { reset };
-  },
-
-  components: {
-    Modal,
   },
 
   data() {
@@ -18,7 +18,6 @@ export default {
       showModal: false,
     };
   },
-
   methods: {
     onDismiss() {
       this.showModal = false;

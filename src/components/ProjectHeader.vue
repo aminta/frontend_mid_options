@@ -1,14 +1,18 @@
 <script setup>
-import ProjectItem from "./ProjectItem.vue";
+import CellSort from "./CellSort.vue";
+import Layout from "./fragments/layout/Layout.vue";
 </script>
 
 <template>
-  <ProjectItem
-    is-Header
-    :name="`Nome e descrizione`"
-    :stars="`Rating`"
-    :created-at="`Data di creazione`"
-  />
+  <Layout :columns="4">
+    <CellSort field="name">
+      <h3 class="text-lg font-bold">Nome e descrizione</h3>
+    </CellSort>
+
+    <CellSort centered field="stars"> Rating </CellSort>
+
+    <CellSort right field="createdAt"> Data di creazione </CellSort>
+  </Layout>
 </template>
 
 <style lang="scss" scoped></style>

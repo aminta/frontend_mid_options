@@ -20,7 +20,24 @@ export default {
       validationErrors: [],
     };
   },
+  computed: {
+    ...mapStores(useProjectsStore),
 
+    fieldsToCheck() {
+      return {
+        name: this.newProject.name,
+        description: this.newProject.description,
+      };
+    },
+  },
+  watch: {
+    "newProject.name": function (newVal, oldVal) {
+      this.checkEmptyFields(this.fieldsToCheck);
+    },
+    "newProject.description": function (newVal, oldVal) {
+      this.checkEmptyFields(this.fieldsToCheck);
+    },
+  },
   created() {
     const errorsMessages = {
       name: "Attenzione, inserire nome progetto",
@@ -63,25 +80,6 @@ export default {
     },
     isEmpty(el) {
       return el.trim() === "";
-    },
-  },
-
-  computed: {
-    ...mapStores(useProjectsStore),
-
-    fieldsToCheck() {
-      return {
-        name: this.newProject.name,
-        description: this.newProject.description,
-      };
-    },
-  },
-  watch: {
-    "newProject.name": function (newVal, oldVal) {
-      this.checkEmptyFields(this.fieldsToCheck);
-    },
-    "newProject.description": function (newVal, oldVal) {
-      this.checkEmptyFields(this.fieldsToCheck);
     },
   },
 };

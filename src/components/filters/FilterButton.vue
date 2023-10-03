@@ -9,13 +9,6 @@ export default {
       isPressed: store.showOnlyTopThree,
     };
   },
-
-  methods: {
-    toggleButton() {
-      this.isPressed = !this.isPressed;
-    },
-  },
-
   computed: {
     buttonClasses() {
       return {
@@ -31,10 +24,14 @@ export default {
     },
     ...mapStores(useProjectsStore),
   },
-
   watch: {
     isPressed(newValue, oldValue) {
       this.projectsStore.setShowOnlyTopThreProjects(newValue);
+    },
+  },
+  methods: {
+    toggleButton() {
+      this.isPressed = !this.isPressed;
     },
   },
 };
